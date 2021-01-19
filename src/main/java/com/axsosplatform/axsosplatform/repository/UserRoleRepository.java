@@ -1,4 +1,4 @@
-package com.axsosplatform.axsosplatform.models.repository;
+package com.axsosplatform.axsosplatform.repository;
 
 import com.axsosplatform.axsosplatform.models.User;
 import org.springframework.data.repository.CrudRepository;
