@@ -11,5 +11,6 @@ import java.util.List;
 public interface TagRepository extends CrudRepository<Tag,Long> {
     List<Tag> findALL();
     List<Tag> findTagBy(Tag tag);
+    List<Tag> findDistinctBy(Tag tag);
     List<Tag> findLabelBy(String title);
 }
