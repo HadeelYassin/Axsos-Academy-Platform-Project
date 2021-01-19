@@ -1,10 +1,10 @@
 package com.axsosplatform.axsosplatform.models.repository;
 
-import com.axsosplatform.axsosplatform.models.Tag;
+
+import com.axsosplatform.axsosplatform.models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface TagRepository extends CrudRepository<Tag,Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 }
