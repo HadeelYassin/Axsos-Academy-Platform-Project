@@ -1,4 +1,4 @@
-package com.axsosplatform.axsosplatform.models.repository;
+package com.axsosplatform.axsosplatform.repository;
 
 import com.axsosplatform.axsosplatform.models.QuestionPostTag;
 import org.springframework.data.repository.CrudRepository;
