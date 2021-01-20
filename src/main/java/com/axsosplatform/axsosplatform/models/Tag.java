@@ -11,6 +11,8 @@ public class Tag {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    private String description;
+
 
 
     @Column(updatable=false)
@@ -31,6 +33,13 @@ public class Tag {
     public Tag() {
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Long getId() {
         return id;

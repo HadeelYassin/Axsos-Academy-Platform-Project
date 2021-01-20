@@ -9,5 +9,9 @@ import java.util.List;
 
 @Repository
 public interface TagRepository extends CrudRepository<Tag,Long> {
+    List<Tag> findAll();
+    List<Tag> findTagsBy(Tag tag);
+
+
 
 }
