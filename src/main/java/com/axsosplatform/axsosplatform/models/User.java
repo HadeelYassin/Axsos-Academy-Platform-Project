@@ -1,6 +1,7 @@
 package com.axsosplatform.axsosplatform.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -11,18 +12,20 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String email;
+    @Size(min=5, message="Password must be greater than 5 characters")
     private String password;
-    private String name;
+    @Size(min=3, message="Username must be greater than 3 characters")
+    private String username;
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public List<Comment> getComments() {
@@ -34,13 +37,12 @@ public class User {
     }
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_has_role",
+            name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<UserRole> roles;
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
 
     @OneToMany(mappedBy="creator", fetch = FetchType.LAZY)
@@ -62,11 +64,11 @@ public class User {
         this.questionPosts = questionPosts;
     }
 
-    public List<UserRole> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<UserRole> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

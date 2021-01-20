@@ -15,10 +15,10 @@ public class AxsosplatformApplication {
     public static void main(String[] args) {
         SpringApplication.run(AxsosplatformApplication.class, args);
     }
-@EventListener(ApplicationReadyEvent.class)
-    public void triggerwhenStarts(){
-        sendEmailService.sendEmail("hadeelyassin1997@gmail.com", "Hellooooo", "I hope this will work so we can go and sleep");
-
-
-}
+//@EventListener(ApplicationReadyEvent.class)
+//    public void triggerwhenStarts(){
+//        sendEmailService.sendEmail("hadeelyassin1997@gmail.com", "Hellooooo", "I hope this will work so we can go and sleep");
+//
+//
+//}
 }

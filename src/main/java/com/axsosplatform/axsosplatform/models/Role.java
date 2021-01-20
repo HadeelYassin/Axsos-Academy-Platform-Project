@@ -2,45 +2,44 @@ package com.axsosplatform.axsosplatform.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="user_has_role")
-public class UserHasRole {
-
+@Table(name="roles")
+public class Role {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
+    //  admin role= 'ROLE_ADMIN'// student role="ROLE_USER"
+    private String name;
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="role_id")
-    private UserRole  role;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
-
-    public UserHasRole() {
+    public String getName() {
+        return name;
     }
 
-    public UserRole getRole() {
-        return role;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
+
+    public Role(){}
+
+
+    public List<User> getUsers() {
+        return users;
     }
 
-    public User getUser() {
-        return user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+
 
     public Long getId() {
         return id;
@@ -49,6 +48,8 @@ public class UserHasRole {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 
     public Date getCreatedAt() {
         return createdAt;
@@ -66,6 +67,10 @@ public class UserHasRole {
         this.updatedAt = updatedAt;
     }
 
+
+
+
+
     @PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
@@ -74,4 +79,5 @@ public class UserHasRole {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
+
 }
