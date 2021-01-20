@@ -34,13 +34,12 @@ public class TagService {
     }
 
 
-    public List<Tag> findTagBySubject( Tag tag){
-        return tagRepository.findTagsBy(tag);
-    }
-
-
     public Tag editTag(Tag tag){
         return tagRepository.save(tag);
 
+    }
+
+    public List<Tag> findAllTag(){
+        return tagRepository.findAll();
     }
 }

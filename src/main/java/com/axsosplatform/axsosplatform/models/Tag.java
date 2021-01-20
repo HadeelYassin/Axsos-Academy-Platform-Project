@@ -10,11 +10,7 @@ public class Tag {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
     private String description;
-
-
-
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
