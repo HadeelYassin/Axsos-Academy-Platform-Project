@@ -34,9 +34,13 @@ public class User {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_role_id")
-    private UserRole role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_has_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<UserRole> roles;
 
 
     @OneToMany(mappedBy="creator", fetch = FetchType.LAZY)
@@ -58,12 +62,12 @@ public class User {
         this.questionPosts = questionPosts;
     }
 
-    public UserRole getRole() {
-        return role;
+    public List<UserRole> getRoles() {
+        return roles;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 
     public Long getId() {

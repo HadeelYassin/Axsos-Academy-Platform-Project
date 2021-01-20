@@ -19,19 +19,13 @@ public class UserRole {
     private Date updatedAt;
 
 
-    @OneToMany(mappedBy="role", fetch = FetchType.LAZY)
-    private List<User> user;
-
-    public UserRole(){}
-
-
-    public List<User> getUser() {
-        return user;
-    }
-
-    public void setUser(List<User> user) {
-        this.user = user;
-    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_has_role",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
 
     @PrePersist
     protected void onCreate(){
@@ -41,6 +35,19 @@ public class UserRole {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
+
+    public UserRole(){}
+
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+
 
     public Long getId() {
         return id;
