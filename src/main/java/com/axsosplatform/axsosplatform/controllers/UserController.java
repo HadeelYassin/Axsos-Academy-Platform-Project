@@ -4,12 +4,12 @@ import com.axsosplatform.axsosplatform.models.Tag;
 import com.axsosplatform.axsosplatform.models.User;
 import com.axsosplatform.axsosplatform.services.TagService;
 import com.axsosplatform.axsosplatform.services.UserService;
+import com.axsosplatform.axsosplatform.validator.UserValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -18,19 +18,21 @@ import java.security.Principal;
 public class UserController {
     private UserService userService;
     private TagService tagService;
+    private final UserValidator userValidator;
 
-    public UserController(UserService userService, TagService tagService) {
+    public UserController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
+        this.userValidator = userValidator;
         this.tagService = tagService;
     }
 
 
     @RequestMapping("/login")
-    public String login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, Model model) {
-        if (error != null) {
+    public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
+        if(error != null) {
             model.addAttribute("errorMessage", "Invalid Credentials, Please try again.");
         }
-        if (logout != null) {
+        if(logout != null) {
             model.addAttribute("logoutMessage", "Logout Successful!");
         }
         return "loginPage.jsp";
@@ -54,21 +56,14 @@ public class UserController {
 
 
     @PostMapping("/admin")
-    public String registration(@RequestParam("UserTag") String usertag, @Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session, @Valid @ModelAttribute("tag") Tag tag, BindingResult resultTag) {
-        if (usertag.equals("user")) {
-            if (result.hasErrors()) {
-                return "adminPage.jsp";
-            }
-            userService.saveWithUserRole(user);
-        } else {
-            if (resultTag.hasErrors()) {
-                return "adminPage.jsp";
-            }
-            tagService.addTag(tag);
+    public String registration( @Valid @ModelAttribute("user") User user,BindingResult result, Model model) {
+        userValidator.validate(user, result);
+        if(result.hasErrors()) {
+            System.out.println("*********");
+            return "adminPage.jsp";
         }
+            userService.saveWithUserRole(user);
         return "redirect:/admin";
-
-
     }
 }
 

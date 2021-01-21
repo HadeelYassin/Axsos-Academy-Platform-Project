@@ -1,5 +1,6 @@
 package com.axsosplatform.axsosplatform.services;
 
+import com.axsosplatform.axsosplatform.models.QuestionPost;
 import com.axsosplatform.axsosplatform.models.Tag;
 import com.axsosplatform.axsosplatform.repository.TagRepository;
 import org.springframework.stereotype.Service;
@@ -38,4 +39,15 @@ public class TagService {
         return tagRepository.save(tag);
 
     }
+    public List<Tag> findAllTag(){
+
+        return tagRepository.findAll();
+    }
+
+    public  List<QuestionPost> getquestions(Long tid,int kind){
+
+       return tagRepository.getquestions(tid,kind);
+    }
+
+
 }

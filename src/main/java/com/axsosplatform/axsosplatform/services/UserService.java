@@ -4,6 +4,7 @@ import com.axsosplatform.axsosplatform.models.User;
 import com.axsosplatform.axsosplatform.repository.UserRepository;
 import com.axsosplatform.axsosplatform.repository.RoleRepository;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ public class UserService {
     private  UserRepository userRepository;
     private RoleRepository roleRepository;
     private  BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private SendEmailService sendEmailService;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
@@ -25,6 +28,7 @@ public class UserService {
 
     // register user and hash their password
     public User registerUser(User user) {
+        user.setPassword(user.genaratePassword());
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashed);
         return userRepository.save(user);
@@ -43,7 +47,11 @@ public class UserService {
 
 
     public void saveWithUserRole(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        System.out.println("save user in database ");
+        String password =user.genaratePassword();
+        System.out.println("the password is : "+password);
+        sendEmailService.sendEmail(user.getUsername(),"Your email is: "+user.getUsername()+"Your password is:  "+password , "Password");
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         user.setRoles(roleRepository.findByName("ROLE_USER"));
         userRepository.save(user);
     }

@@ -13,9 +13,6 @@ public class Tag {
 
 
     private String description;
-
-
-
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;

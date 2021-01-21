@@ -6,41 +6,33 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Registration Page</title>
+    <title>Admin Page</title>
 </head>
 <body>
-<h1>Register New User </h1>
+<h1>Welcome to the Admin Page <c:out value="${currentUser.username}"></c:out></h1>
 
 <p><form:errors path="user.*"/></p>
-
 <form:form method="POST" action="/admin" modelAttribute="user">
-    <input  type="hidden" name="UserTag" value="user">
+
     <p>
-        <form:label path="username">Email:</form:label>
+        <form:label path="username">Username:</form:label>
         <form:input path="username"/>
     </p>
-
     <p>
         <form:label path="name">Name:</form:label>
         <form:input path="name"/>
     </p>
     <p>
-        <form:label path="password">Password:</form:label>
-        <form:password path="password"/>
+        <form:input  type="hidden" value="123456789" path="password"/>
     </p>
-
     <input type="submit" value="Register!"/>
 </form:form>
 
-<form:form method="POST" action="/admin" modelAttribute="tag">
-    <p><form:label path="label">Title</form:label>
-        <form:input path="label">Title</form:input>
-    </p>
-    <p><form:label path="description">Description</form:label>
-        <form:input path="description"/>
-    </p>
-    <input  type="hidden" name="UserTag"  value="tag">
-<button>Add Tag</button>
-</form:form>
+<form id="logoutForm" method="POST" action="/logout">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="submit" value="Logout!" />
+</form>
+
+
 </body>
 </html>

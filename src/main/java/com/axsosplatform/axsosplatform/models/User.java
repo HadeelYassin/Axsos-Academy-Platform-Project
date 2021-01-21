@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 @Table(name="users")
@@ -56,6 +57,7 @@ public class User {
     public User() {
     }
 
+
     public List<QuestionPost> getQuestionPosts() {
         return questionPosts;
     }
@@ -84,8 +86,8 @@ public class User {
         return name;
     }
 
-    public void setName(String email) {
-        this.name = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -110,6 +112,26 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+    public String genaratePassword(){
+        String aToz="qwertyuioplkjhgfdsazxcvbnm";
+        String AtoZ="QAZWSXEDCRFVTGBYHNUJMIKLOP";
+        String specialChar="!#$^*&";
+        Random r= new Random();
+        int a_z=r.nextInt(25);
+        int num=r.nextInt(5);
+        StringBuilder sb =new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            a_z=r.nextInt(25);
+            num=r.nextInt(5);
+            sb.append(aToz.charAt(a_z));
+            sb.append(AtoZ.charAt(a_z));
+            sb.append(specialChar.charAt(num));
+        }
+        return sb.toString();
+
     }
 
     @PrePersist
