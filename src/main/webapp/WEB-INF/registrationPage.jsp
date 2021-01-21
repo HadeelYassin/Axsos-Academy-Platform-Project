@@ -19,8 +19,7 @@
         <form:input path="username"/>
     </p>
     <p>
-        <form:label path="password">Password:</form:label>
-        <form:password path="password"/>
+        <form:input  path="password" type="hidden"/>
     </p>
     <input type="submit" value="Register!"/>
 </form:form>

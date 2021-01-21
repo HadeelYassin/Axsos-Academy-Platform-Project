@@ -18,13 +18,8 @@ import java.security.Principal;
 @Controller
 public class UserController {
     private UserService userService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private SendEmailService sendEmailService;
-
 
     public UserController(UserService userService) {
-
         this.userService = userService;
     }
 
@@ -34,12 +29,11 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
-            return "registrationPage.jsp";
-        }
+    public String registration( @ModelAttribute("user") User user, Model model, HttpSession session) {
+
+
+
         userService.saveWithUserRole(user);
-        sendEmailService.sendEmail(user.getUsername(),"Your email is: "+user.getUsername()+"Your password is:  "+"+bCryptPasswordEncoder.encode(user.getPassword()) ", "Password");
         return "redirect:/login";
     }
 
@@ -56,7 +50,7 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/home"})
-    public String home(Principal principal, Model model) {
+    public String home(Principal principal, Model model,HttpSession session) {
         // 1
         String username = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(username));
