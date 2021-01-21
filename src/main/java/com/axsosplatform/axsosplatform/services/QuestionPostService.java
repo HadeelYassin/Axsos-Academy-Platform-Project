@@ -12,6 +12,9 @@ public class QuestionPostService  {
     public QuestionPostService(QuestionPostRepo questionPostRepo) {
         this.questionPostRepo = questionPostRepo;
     }
+    public QuestionPost getQuestionPostById(Long id){
+        return this.questionPostRepo.findById(id).orElse(null);
+    }
 
 
     public QuestionPost addYourQuestionPost(QuestionPost questionPost){

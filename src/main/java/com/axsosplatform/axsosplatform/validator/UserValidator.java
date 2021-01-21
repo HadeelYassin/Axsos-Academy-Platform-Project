@@ -23,7 +23,5 @@ public class UserValidator implements Validator {
         if(this.uRepo.findByUsername(user.getUsername())!= null) {
             errors.rejectValue("username", "Unique");
         }
-
-
     }
 }

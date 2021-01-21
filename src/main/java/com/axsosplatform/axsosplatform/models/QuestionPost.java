@@ -14,7 +14,8 @@ public class QuestionPost {
 
     private  String title;
 
-
+    @Lob
+    @Column(name="BODY", length=512)
     private String  body;
 
     @Column(updatable=false)
