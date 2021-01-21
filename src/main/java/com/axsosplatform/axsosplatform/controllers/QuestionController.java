@@ -68,9 +68,15 @@ public class QuestionController {
             return "error.jsp";
         }else {
             model.addAttribute("question",question);
-            return "addQuestionForm.jsp";
+            return "redirect:/askQuestion";
         }
 
+    }
+    @RequestMapping("/search")
+    public String searchResults(Model model){
+        List<QuestionPost> reslutQuestion=questionPostService.findsearchResult("nn","nn");
+        model.addAttribute("allreslut",reslutQuestion);
+        return "result.jsp";
     }
 
 

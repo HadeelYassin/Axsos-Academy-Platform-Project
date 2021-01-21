@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -47,7 +48,6 @@ public class UserController {
         return "homePage.jsp";
     }
 
-
     @RequestMapping("/admin")
     public String adminPage(Principal principal, Model model, @Valid @ModelAttribute("user") User user, @ModelAttribute("tag") Tag tag) {
         String username = principal.getName();
@@ -78,6 +78,9 @@ public class UserController {
 
         return "redirect:/admin";
     }
+
+
+
 }
 
 

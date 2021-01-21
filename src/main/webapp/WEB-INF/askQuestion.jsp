@@ -15,23 +15,26 @@
 <body>
 <form:form action="/askQuestion" method="post" modelAttribute="question">
     <p>
-    <form:label path="title"/>
+        <form:label path="title">Title</form:label>
     <form:input path="title"/>
     </p>
     <p>
-        <form:label path="body"/>
+        <form:label path="body">Body</form:label>
         <form:input path="body"/>
     </p>
         <form:hidden value="${ currentUser.id }" path="creator"/>
     <form:hidden value="${kind.id }" path="type"/>
     <p>
-        <form:checkbox path="tags">
+
     <c:forEach items="${ tags }" var="tag">
-        <form:option value="${ tag.id }">"${ tag.label }"</form:option>
+        ${ tag.label}<form:checkbox id="${ tag.id }" value="${ tag.id }" path="tags"/>
     </c:forEach>
-         </form:checkbox>
+
+
+
     </p>
-    <button>Ask!</button>
+
+    <button type="submit">Ask!</button>
 
 
 
