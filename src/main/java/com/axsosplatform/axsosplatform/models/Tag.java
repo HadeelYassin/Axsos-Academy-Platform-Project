@@ -1,6 +1,7 @@
 package com.axsosplatform.axsosplatform.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -11,15 +12,13 @@ public class Tag {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-
+@Size(min=20)
     private String description;
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
-
+    @Size(min=1)
     private  String label;
-
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "qp_tags",

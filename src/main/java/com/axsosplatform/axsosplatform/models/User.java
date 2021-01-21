@@ -1,6 +1,7 @@
 package com.axsosplatform.axsosplatform.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -12,10 +13,11 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+    @Size(min=3, message="Name must be greater than 3 characters")
     private String name;
-    @Size(min=5, message="Password must be greater than 5 characters")
+    @Size(min=8, message="Password must be greater than 8 characters")
     private String password;
-    @Size(min=3, message="Username must be greater than 3 characters")
+    @Email
     private String username;
     @Column(updatable=false)
     private Date createdAt;

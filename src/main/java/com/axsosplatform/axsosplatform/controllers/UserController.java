@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
 public class UserController {
-    private UserService userService;
-    private TagService tagService;
+    private final UserService userService;
+    private final  TagService tagService;
     private final UserValidator userValidator;
 
-    public UserController(UserService userService, UserValidator userValidator) {
+    public UserController(UserService userService, UserValidator userValidator,TagService tagService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.tagService = tagService;
@@ -51,18 +52,30 @@ public class UserController {
     public String adminPage(Principal principal, Model model, @Valid @ModelAttribute("user") User user, @ModelAttribute("tag") Tag tag) {
         String username = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(username));
+        List<User> alluser= userService.findAllUser();
+        model.addAttribute("users",alluser);
         return "adminPage.jsp";
     }
 
 
     @PostMapping("/admin")
-    public String registration( @Valid @ModelAttribute("user") User user,BindingResult result, Model model) {
+    public String registration( @RequestParam("UserTag") String userTag,@Valid @ModelAttribute("user") User user,BindingResult result, Model model,@Valid @ModelAttribute("tag") Tag tag, BindingResult resultTag) {
         userValidator.validate(user, result);
-        if(result.hasErrors()) {
-            System.out.println("*********");
-            return "adminPage.jsp";
-        }
+        if (userTag.equals("user1")) {
+            if (result.hasErrors()) {
+                System.out.println("*********");
+                return "adminPage.jsp";
+            }
             userService.saveWithUserRole(user);
+        }
+        else {
+            if(resultTag.hasErrors()){
+                return "adminPage.jsp";
+            }
+            tagService.addTag(tag);
+        }
+
+
         return "redirect:/admin";
     }
 }
