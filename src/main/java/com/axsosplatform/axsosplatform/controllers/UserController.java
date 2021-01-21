@@ -47,7 +47,6 @@ public class UserController {
         return "homePage.jsp";
     }
 
-
     @RequestMapping("/admin")
     public String adminPage(Principal principal, Model model, @Valid @ModelAttribute("user") User user, @ModelAttribute("tag") Tag tag) {
         String username = principal.getName();

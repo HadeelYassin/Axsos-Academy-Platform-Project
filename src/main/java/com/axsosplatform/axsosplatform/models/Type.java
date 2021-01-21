@@ -12,7 +12,7 @@ public class Type {
     private Long id;
 
 
-    //question 1
+    //question
     public int kind;
 
     @OneToMany(mappedBy="type", fetch = FetchType.LAZY)
