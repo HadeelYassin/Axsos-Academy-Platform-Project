@@ -44,7 +44,7 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public  List<QuestionPost> getquestions(Long tid,int kind){
+    public  List<QuestionPost> getquestions(Long tid,String kind){
 
        return tagRepository.getquestions(tid,kind);
     }

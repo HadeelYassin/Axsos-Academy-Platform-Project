@@ -20,6 +20,9 @@ public class TypeService {
         return typeRepository.save(type);
 
     }
+    public Type findType(String kind){
+        return typeRepository.findByKind(kind);
+    }
 
 
     public Type editType(Type type){

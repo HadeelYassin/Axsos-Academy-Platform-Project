@@ -19,7 +19,7 @@ public interface TagRepository extends CrudRepository<Tag,Long> {
             "qp.type_id= t.id and\n" +
             "qpt.tag_id=?1\n" +
             "and t.kind =?2;", nativeQuery=true)
-    List<QuestionPost> getquestions(Long tid,int kind);
+    List<QuestionPost> getquestions(Long tid,String kind);
 
 
 

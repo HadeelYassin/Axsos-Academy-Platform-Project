@@ -12,8 +12,7 @@ public class Type {
     private Long id;
 
 
-    //question
-    public int kind;
+    public String kind;
 
     @OneToMany(mappedBy="type", fetch = FetchType.LAZY)
     private List<QuestionPost> questionPosts;
@@ -33,11 +32,11 @@ public class Type {
     public Type() {
     }
 
-    public int getKind() {
+    public String getKind() {
         return kind;
     }
 
-    public void setKind(int kind) {
+    public void setKind(String kind) {
         this.kind = kind;
     }
 

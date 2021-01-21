@@ -17,17 +17,17 @@ public class TagController {
         this.tagService = tagService;
     }
 
+
+
     @RequestMapping("/start")
     public String tagePage(Model model){
             List<Tag> allTag= tagService.findAllTag();
             model.addAttribute("tags",allTag);
             return "tags.jsp";
+
+
     }
-    @RequestMapping("tag/{id}/posts")
-        public String getTagWithPost(){
 
 
-            return "";
 
-        }
 }
