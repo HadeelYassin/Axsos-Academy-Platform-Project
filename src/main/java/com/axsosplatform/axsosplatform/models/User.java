@@ -11,7 +11,7 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private String email;
+    private String name;
     @Size(min=5, message="Password must be greater than 5 characters")
     private String password;
     @Size(min=3, message="Username must be greater than 3 characters")
@@ -80,12 +80,12 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String email) {
+        this.name = email;
     }
 
     public String getPassword() {

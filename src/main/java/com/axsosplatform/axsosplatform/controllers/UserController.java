@@ -1,6 +1,8 @@
 package com.axsosplatform.axsosplatform.controllers;
 
+import com.axsosplatform.axsosplatform.models.Tag;
 import com.axsosplatform.axsosplatform.models.User;
+import com.axsosplatform.axsosplatform.services.TagService;
 import com.axsosplatform.axsosplatform.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,32 +17,20 @@ import java.security.Principal;
 @Controller
 public class UserController {
     private UserService userService;
+    private TagService tagService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, TagService tagService) {
         this.userService = userService;
-    }
-
-    @RequestMapping("/registration")
-    public String registerForm(@Valid @ModelAttribute("user") User user) {
-        return "registrationPage.jsp";
-    }
-
-    @PostMapping("/registration")
-    public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
-            return "registrationPage.jsp";
-        }
-        userService.saveWithUserRole(user);
-        return "redirect:/login";
+        this.tagService = tagService;
     }
 
 
     @RequestMapping("/login")
-    public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
-        if(error != null) {
+    public String login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, Model model) {
+        if (error != null) {
             model.addAttribute("errorMessage", "Invalid Credentials, Please try again.");
         }
-        if(logout != null) {
+        if (logout != null) {
             model.addAttribute("logoutMessage", "Logout Successful!");
         }
         return "loginPage.jsp";
@@ -56,13 +46,30 @@ public class UserController {
 
 
     @RequestMapping("/admin")
-    public String adminPage(Principal principal, Model model) {
+    public String adminPage(Principal principal, Model model, @Valid @ModelAttribute("user") User user, @ModelAttribute("tag") Tag tag) {
         String username = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(username));
         return "adminPage.jsp";
     }
 
 
+    @PostMapping("/admin")
+    public String registration(@RequestParam("UserTag") String usertag, @Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session, @Valid @ModelAttribute("tag") Tag tag, BindingResult resultTag) {
+        if (usertag.equals("user")) {
+            if (result.hasErrors()) {
+                return "adminPage.jsp";
+            }
+            userService.saveWithUserRole(user);
+        } else {
+            if (resultTag.hasErrors()) {
+                return "adminPage.jsp";
+            }
+            tagService.addTag(tag);
+        }
+        return "redirect:/admin";
 
 
+    }
 }
+
+

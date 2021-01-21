@@ -7,6 +7,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -31,7 +33,11 @@ public class UserService {
     // find user by email
     public User findByEmail(String email) {
 
-        return userRepository.findByEmail(email);
+        return userRepository.findByUsername(email);
+    }
+
+    public List<User> findAllUser(){
+        return userRepository.findAll();
     }
 
 
