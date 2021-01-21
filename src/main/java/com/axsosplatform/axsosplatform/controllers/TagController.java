@@ -17,19 +17,14 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @RequestMapping("/")
-    public String homePage(){
-        return "homePagejsp";
-    }
+
 
     @RequestMapping("/start")
-    public String tagePage(Model model, HttpSession session){
-        if (session.getAttribute("userId") !=null){
+    public String tagePage(Model model){
             List<Tag> allTag= tagService.findAllTag();
             model.addAttribute("tags",allTag);
             return "tags.jsp";
-        }
-        return "/";
+
 
     }
 
