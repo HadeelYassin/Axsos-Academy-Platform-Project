@@ -1,5 +1,6 @@
 package com.axsosplatform.axsosplatform.controllers;
 
+import com.axsosplatform.axsosplatform.models.Comment;
 import com.axsosplatform.axsosplatform.models.QuestionPost;
 import com.axsosplatform.axsosplatform.models.Tag;
 import com.axsosplatform.axsosplatform.models.Type;
@@ -36,12 +37,13 @@ public class QuestionController {
 
 
 
-    @RequestMapping("tag/{id}/question")
+    @RequestMapping("tag/{id}/questions")
     public String showQuestions(@PathVariable("id") Long id, Model model, @ModelAttribute("posts") QuestionPost posts){
         List <QuestionPost> allTagQuestions=tagService.getquestions(id,"question");
         model.addAttribute("allPosts",allTagQuestions);
         return "tagPosts.jsp";
     }
+
     @RequestMapping("/askQuestion")
     public String showAskQuestionForm(@ModelAttribute("question") QuestionPost question, Principal principal, Model model) {
         String username = principal.getName();
@@ -61,17 +63,19 @@ public class QuestionController {
         questionPostService.addYourQuestionPost(question);
         return "redirect:/question/"+question.getId();
     }
+
     @RequestMapping("/question/{id}")
-    public String showQuestion(@PathVariable("id") Long id, Model model){
+    public String showQuestion(@PathVariable("id") Long id, Model model, @ModelAttribute("comment")Comment comment){
         QuestionPost question=questionPostService.getQuestionPostById(id);
         if (question ==null){
             return "error.jsp";
         }else {
             model.addAttribute("question",question);
-            return "redirect:/askQuestion";
+            return "showQuestionPost.jsp";
         }
 
     }
+
     @RequestMapping("/search")
     public String searchResults(Model model){
         List<QuestionPost> reslutQuestion=questionPostService.findsearchResult("nn","nn");

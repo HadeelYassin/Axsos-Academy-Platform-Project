@@ -17,5 +17,9 @@
     <h1>${res.body}</h1>
 </c:forEach>
 
+
+<p><img src="<c:url value="/img/homeImg.png"/>"/></p>
+
+
 </body>
 </html>

@@ -13,6 +13,8 @@ public class Tag {
     private Long id;
 
 @Size(min=20)
+@Lob
+@Column(name="Description",length=512)
     private String description;
     @Column(updatable=false)
     private Date createdAt;

@@ -44,7 +44,7 @@
         <form:input path="label"/>
     </p>
     <p><form:label path="description">Description</form:label>
-        <form:input path="description"/>
+        <form:textarea    rows="5" cols="50" path="description"/>
     </p>
     <button>Add Tag</button>
 </form:form>

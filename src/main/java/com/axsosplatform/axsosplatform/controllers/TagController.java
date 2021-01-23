@@ -18,7 +18,6 @@ public class TagController {
     }
 
 
-
     @RequestMapping("/start")
     public String tagePage(Model model){
             List<Tag> allTag= tagService.findAllTag();
@@ -27,7 +26,5 @@ public class TagController {
 
 
     }
-
-
 
 }
