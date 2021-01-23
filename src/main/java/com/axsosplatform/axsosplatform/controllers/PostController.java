@@ -4,7 +4,7 @@ package com.axsosplatform.axsosplatform.controllers;
 import com.axsosplatform.axsosplatform.models.Comment;
 import com.axsosplatform.axsosplatform.models.QuestionPost;
 import com.axsosplatform.axsosplatform.models.Tag;
-import com.axsosplatform.axsosplatform.models.Type;
+import com.axsosplatform.axsosplatform.models.TypeO;
 import com.axsosplatform.axsosplatform.services.QuestionPostService;
 import com.axsosplatform.axsosplatform.services.TagService;
 import com.axsosplatform.axsosplatform.services.TypeService;
@@ -35,18 +35,18 @@ public class PostController {
         this.typeService = typeService;
     }
 
-    @RequestMapping("tag/{id}/posts")
-    public String showPosts(@PathVariable("id") Long id, Model model) {
-        List<QuestionPost> allTagPosts = tagService.getquestions(id, "post");
-        model.addAttribute("allPosts", allTagPosts);
-        return "tagPosts.jsp";
-    }
+//    @RequestMapping("tag/{id}/posts")
+//    public String showPosts(@PathVariable("id") Long id, Model model) {
+//        List<QuestionPost> allTagPosts = tagService.getquestions(id, "post");
+//        model.addAttribute("allPosts", allTagPosts);
+//        return "tagPosts.jsp";
+//    }
 
     @RequestMapping("/addPost")
     public String showAddPostForm(@ModelAttribute("post") QuestionPost post, Principal principal, Model model) {
         String username = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(username));
-        Type kind=typeService.findType("post");
+        TypeO kind=typeService.findType("post");
         List<Tag> tags =tagService.findAllTag();
         model.addAttribute("tags",tags);
         model.addAttribute("kind",kind);

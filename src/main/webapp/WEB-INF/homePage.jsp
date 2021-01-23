@@ -12,12 +12,36 @@
 <body>
 <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
 
-<img  class="homeImg" src="<c:url value="/img/login.jpg"/>"/>
-<p>We <3 people who code!</p>
-<p>Join our community where there are people to help you </p>
-<p>overcoming the  challenges that you will face while</p>
-<p>learning coding.Also you can help to :’)</p>
-<p>Enjoy!</p>
+<div class="main">
+    <img  class="homeImg" src="<c:url value="/img/login.jpg"/>"/>
+<h4 class="top-right">We <3 people who code! <br><br>
+    Join our community where we
+    empower  <br> developers and connect
+    them to solutions <br> that enable
+    productivity, growth, <br> and discovery.<br>
+  <br>Enjoy!
+</h4>
+</div>
+
+<div class="tags d-flex justify-content-space">
+    <div class="row">
+
+    <c:forEach items="${ tags }" var="t">
+
+    <div class="card col-4" style="width: 18rem;">
+        <div class="card-body ">
+            <h5 class="card-title">${t.label}</h5>
+            <p class="card-text">${t.description}</p>
+            <div class="links-qp">
+            <a href="/tag/${t.id}/questions" class="btn btn-warning">Questions</a>
+            <a href="#" class="btn btn-warning">Post</a>
+            </div>
+        </div>
+    </div>
+
+    </c:forEach>
+</div>
+</div>
 
 </form>
 </body>

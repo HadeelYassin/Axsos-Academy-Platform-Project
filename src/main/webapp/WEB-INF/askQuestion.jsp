@@ -23,7 +23,7 @@
         <form:input path="body"/>
     </p>
         <form:hidden value="${ currentUser.id }" path="creator"/>
-    <form:hidden value="${kind.id }" path="type"/>
+    <form:hidden value="${kind.id }" path="typeO"/>
     <p>
 
     <c:forEach items="${ tags }" var="tag">

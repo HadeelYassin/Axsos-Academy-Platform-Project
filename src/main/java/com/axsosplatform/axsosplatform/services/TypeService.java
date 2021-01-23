@@ -1,6 +1,6 @@
 package com.axsosplatform.axsosplatform.services;
 
-import com.axsosplatform.axsosplatform.models.Type;
+import com.axsosplatform.axsosplatform.models.TypeO;
 import com.axsosplatform.axsosplatform.repository.TypeRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +15,19 @@ public class TypeService {
     }
 
 
-    public Type addType(Type type){
+    public TypeO addType(TypeO typeO){
 
-        return typeRepository.save(type);
+        return typeRepository.save(typeO);
 
     }
-    public Type findType(String kind){
+    public TypeO findType(String kind){
         return typeRepository.findByKind(kind);
     }
 
 
-    public Type editType(Type type){
+    public TypeO editType(TypeO typeO){
 
-        return typeRepository.save(type);
+        return typeRepository.save(typeO);
 
     }
 }

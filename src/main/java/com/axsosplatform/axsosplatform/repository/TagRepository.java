@@ -13,14 +13,8 @@ import java.util.List;
 public interface TagRepository extends CrudRepository<Tag,Long> {
     List<Tag> findAll();
 
-    @Query(value="select qp.*\n" +
-            "from qposts qp , qp_tags  qpt ,type t\n" +
-            "where qp.id=qpt.qp_id and \n" +
-            "qp.type_id= t.id and\n" +
-            "qpt.tag_id=?1\n" +
-            "and t.kind =?2;", nativeQuery=true)
-    List<QuestionPost> getquestions(Long tid,String kind);
-
+    @Query(value="select qp.* from qposts qp , qp_tags  qpt ,typeo t where qp.id=qpt.qp_id and qp.type_id= t.id and qpt.tag_id=?1 and  t.kind =?2", nativeQuery=true)
+    List<Object[]> getquestions(Long tid,String ques);
 
 
 }

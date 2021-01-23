@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="type")
-public class Type {
+@Table(name="typeo")
+public class TypeO {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +14,7 @@ public class Type {
 
     public String kind;
 
-    @OneToMany(mappedBy="type", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="typeO", fetch = FetchType.LAZY)
     private List<QuestionPost> questionPosts;
 
     public List<QuestionPost> getQuestionPosts() {
@@ -29,7 +29,7 @@ public class Type {
     private Date createdAt;
     private Date updatedAt;
 
-    public Type() {
+    public TypeO() {
     }
 
     public String getKind() {

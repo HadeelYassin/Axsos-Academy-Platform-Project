@@ -28,7 +28,7 @@ public class QuestionPost {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="type_id")
-    private Type type;
+    private TypeO typeO;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -44,6 +44,10 @@ public class QuestionPost {
     public QuestionPost() {
     }
 
+    public QuestionPost( String body, String title) {
+        this.title = title;
+        this.body = body;
+    }
 
     public List<Comment> getComments() {
         return comments;
@@ -69,12 +73,12 @@ public class QuestionPost {
         this.creator = creator;
     }
 
-    public Type getType() {
-        return type;
+    public TypeO getTypeO() {
+        return typeO;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setTypeO(TypeO typeO) {
+        this.typeO = typeO;
     }
 
     public Long getId() {

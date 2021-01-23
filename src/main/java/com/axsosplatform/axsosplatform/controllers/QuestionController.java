@@ -3,7 +3,7 @@ package com.axsosplatform.axsosplatform.controllers;
 import com.axsosplatform.axsosplatform.models.Comment;
 import com.axsosplatform.axsosplatform.models.QuestionPost;
 import com.axsosplatform.axsosplatform.models.Tag;
-import com.axsosplatform.axsosplatform.models.Type;
+import com.axsosplatform.axsosplatform.models.TypeO;
 import com.axsosplatform.axsosplatform.services.QuestionPostService;
 import com.axsosplatform.axsosplatform.services.TagService;
 import com.axsosplatform.axsosplatform.services.TypeService;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,17 +39,30 @@ public class QuestionController {
 
 
     @RequestMapping("tag/{id}/questions")
-    public String showQuestions(@PathVariable("id") Long id, Model model, @ModelAttribute("posts") QuestionPost posts){
-        List <QuestionPost> allTagQuestions=tagService.getquestions(id,"question");
-        model.addAttribute("allPosts",allTagQuestions);
-        return "tagPosts.jsp";
+    public String showQuestions(@PathVariable("id") Long id, Model model){
+        System.out.println("before query");
+        long typeId =1;
+        List <Object[]> allQuestions=tagService.getquestions(id,"question");
+        System.out.println("after query");
+        Tag tag =tagService.findTagById(id);
+        List<QuestionPost> all=new ArrayList<QuestionPost>();
+
+        System.out.println(all.size());
+        for (int i = 0; i <allQuestions.size() ; i++) {
+            all.add(new QuestionPost((String)allQuestions.get(i)[1],(String)allQuestions.get(i)[3]));
+         }
+
+
+        model.addAttribute("allquestions",all);
+        model.addAttribute("t",tag);
+        return "questions.jsp";
     }
 
     @RequestMapping("/askQuestion")
     public String showAskQuestionForm(@ModelAttribute("question") QuestionPost question, Principal principal, Model model) {
         String username = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(username));
-        Type kind=typeService.findType("question");
+        TypeO kind=typeService.findType("question");
         List<Tag> tags =tagService.findAllTag();
         model.addAttribute("tags",tags);
         model.addAttribute("kind",kind);

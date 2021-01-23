@@ -44,6 +44,8 @@ public class UserController {
         // 1
         String username = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(username));
+        List<Tag> allTag= tagService.findAllTag();
+        model.addAttribute("tags",allTag);
         return "homePage.jsp";
     }
 
