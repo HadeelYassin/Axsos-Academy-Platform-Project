@@ -3,17 +3,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Admin Page</title>
 </head>
 <body>
+<div class="container">
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">UserName</th>
+            <th scope="col">Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${ users }" var="u">
+            <tr>
+            <th scope="row">${ u.id}</th>
+            <td>${ u.username}</td>
+            <td>${ u.name}</td>
+        </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
-
-<c:forEach items="${ users }" var="u">
-    <li><a href="/">${ u.username }</a></li>
-</c:forEach>
 <h1>Welcome to the Admin Page <c:out value="${currentUser.username}"></c:out></h1>
 
 <p><form:errors path="user.*"/></p>
@@ -53,5 +70,6 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="submit" value="Logout!" />
 </form>
+</div>
 </body>
 </html>

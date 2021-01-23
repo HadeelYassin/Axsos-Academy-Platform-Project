@@ -75,7 +75,6 @@ public class QuestionController {
         }
 
     }
-
     @RequestMapping("/search")
     public String searchResults(Model model){
         List<QuestionPost> reslutQuestion=questionPostService.findsearchResult("nn","nn");

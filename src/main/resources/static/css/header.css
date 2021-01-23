@@ -1,0 +1,15 @@
+
+.btn-outline-warning{
+    color: #efd400;
+    background-color: transparent;
+    background-image: none;
+    border-color: #efd400;
+}
+img{
+    height: 55px;
+    width:100px;
+}
+
+h5{
+    margin-right: 15px;
+}

@@ -11,41 +11,34 @@
 
 </head>
 <body>
-
-<div class="container mt-5"  >
-    <div class="row"></div>
-
-    <div class="row justify-content-center">
+<div class="container mt-5 justify-content-center" >
+    <div class="row">
 
         <div class="col-4"></div>
-
-        <div class="col-4  login-box">
+        <div class="col-4 login-box">
             <c:if test="${logoutMessage != null}">
                 <c:out value="${logoutMessage}"></c:out>
             </c:if>
-            <h1>Login</h1>
+            <h2>Login</h2>
+            <p>Welcome back! Let's get coding.</p>
             <c:if test="${errorMessage != null}">
-              <p class="error-message"><c:out value="${errorMessage}"></c:out></p>
+                <p class="error-message"><c:out value="${errorMessage}"></c:out></p>
             </c:if>
             <form method="POST" action="/login">
                 <p>
                     <label for="username">Email</label>
-                    <input type="text" id="username" name="username " class="form-control"/>
+                    <input type="text" id="username" name="username"  class="form-control"/>
                 </p>
                 <p>
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control"/>
+                    <input type="password" id="password" name="password"  class="form-control"/>
                 </p>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="submit" value="Login!"  class="btn btn-dark login-submit"/>
             </form>
-
         </div>
         <div class="col-4"></div>
-
     </div>
-
 </div>
-
 </body>
 </html>
