@@ -44,7 +44,13 @@ public class QuestionPost {
     public QuestionPost() {
     }
 
-    public QuestionPost( String body, String title) {
+    public QuestionPost(Long id, String body,String title) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+    }
+
+    public QuestionPost(String body, String title) {
         this.title = title;
         this.body = body;
     }

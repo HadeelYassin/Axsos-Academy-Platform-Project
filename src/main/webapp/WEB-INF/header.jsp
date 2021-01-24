@@ -17,16 +17,18 @@
 
 
 <nav class="navbar navbar-light bg-light justify-content-between">
-    <a href="#"><img src="<c:url value="/img/logonew.jpg"/>"/> </a>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <a href="/"><img src="<c:url value="/img/logonew.jpg"/>"/> </a>
+    <form action="/search" class="form-inline">
+        <input class="form-control mr-sm-2" name="se" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+        <a href="/askQuestion" class="btn btn-outline-dark my-2 my-sm-0 ml-2" type="submit">Ask Question</a>
+
     </form>
     <div class="d-flex">
    <h5>${currentUser.name}</h5>
     <form id="logoutForm" method="POST" action="/logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="Logout" />
+        <input class="btn btn-outline-dark my-2 my-sm-0" type="submit" value="Logout" />
     </form>
     </div>
 </nav>

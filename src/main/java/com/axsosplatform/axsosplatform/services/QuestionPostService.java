@@ -28,7 +28,7 @@ public class QuestionPostService  {
         return questionPostRepo.save(questionPost);
     }
     public List<QuestionPost> findsearchResult(String question,String q){
-    return this.questionPostRepo.findByTitleOrBodyContains(question,q);
+    return this.questionPostRepo.findByTitleOrBodyLike(question,q);
 }
 
 }

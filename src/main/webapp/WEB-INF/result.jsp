@@ -10,15 +10,43 @@
 <html>
 <head>
     <title>Title</title>
+<style>
+    .btn-outline-warning{
+    color: #efd400;
+    background-color: transparent;
+    background-image: none;
+    border-color: #efd400;
+    }
+    img{
+    height: 55px;
+    width:100px;
+    }
+
+    h5{
+    margin-right: 15px;
+    }
+</style>
+
 </head>
 <body>
-<h1>ggggggggggg</h1>
-<c:forEach items="${ allreslut }" var="res">
-    <h1>${res.body}</h1>
-</c:forEach>
+
+<jsp:include page="/WEB-INF/header.jsp"></jsp:include>
 
 
-<p><img src="<c:url value="/img/homeImg.png"/>"/></p>
+<div class="container mt-5">
+    <c:forEach items="${ allreslut }" var="res">
+    <div class="card">
+        <div class="card-header">
+                ${ res.title }
+        </div>
+        <div class="card-body">
+            <p class="card-text">${ res.body}</p>
+            <a href="question/${res.id}" class="btn btn-dark">View</a>
+        </div>
+    </div>
+    </c:forEach>
+
+
 
 
 </body>

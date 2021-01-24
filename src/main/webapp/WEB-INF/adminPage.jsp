@@ -11,8 +11,9 @@
     <title>Admin Page</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/header.jsp"></jsp:include>
 <div class="container">
-    <table class="table table-sm">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -31,7 +32,6 @@
         </tbody>
     </table>
 
-<h1>Welcome to the Admin Page <c:out value="${currentUser.username}"></c:out></h1>
 
 <p><form:errors path="user.*"/></p>
 <form:form method="POST" action="/admin" modelAttribute="user">
@@ -39,16 +39,16 @@
 
     <p>
         <form:label path="username">Username:</form:label>
-        <form:input path="username"/>
+        <form:input path="username" class="form-control"/>
     </p>
     <p>
         <form:label path="name">Name:</form:label>
-        <form:input path="name"/>
+        <form:input path="name" class="form-control"/>
     </p>
     <p>
-        <form:input  type="hidden" value="123456789" path="password"/>
+        <form:input  type="hidden" value="123456789" class="form-control" path="password"/>
     </p>
-    <input type="submit" value="Register!"/>
+    <input type="submit" value="Register!" class="btn btn-warning"/>
 </form:form>
 
 
@@ -58,18 +58,15 @@
     <input  type="hidden" name="UserTag"  value="tag1">
 
     <p><form:label path="label">Title</form:label>
-        <form:input path="label"/>
+        <form:input path="label" class="form-control"/>
     </p>
     <p><form:label path="description">Description</form:label>
-        <form:textarea    rows="5" cols="50" path="description"/>
+        <form:textarea    rows="5" cols="50" path="description" class="form-control"/>
     </p>
-    <button>Add Tag</button>
+    <button class="btn btn-warning">Add Tag</button>
 </form:form>
 
-<form id="logoutForm" method="POST" action="/logout">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <input type="submit" value="Logout!" />
-</form>
+
 </div>
 </body>
 </html>

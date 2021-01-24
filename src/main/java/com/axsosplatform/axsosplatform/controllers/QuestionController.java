@@ -4,10 +4,7 @@ import com.axsosplatform.axsosplatform.models.Comment;
 import com.axsosplatform.axsosplatform.models.QuestionPost;
 import com.axsosplatform.axsosplatform.models.Tag;
 import com.axsosplatform.axsosplatform.models.TypeO;
-import com.axsosplatform.axsosplatform.services.QuestionPostService;
-import com.axsosplatform.axsosplatform.services.TagService;
-import com.axsosplatform.axsosplatform.services.TypeService;
-import com.axsosplatform.axsosplatform.services.UserService;
+import com.axsosplatform.axsosplatform.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+import java.math.BigInteger;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,29 +26,36 @@ public class QuestionController {
     private final TagService tagService;
     private final UserService userService;
     private final TypeService typeService;
+    private final CommentService commentService;
 
-    public QuestionController(QuestionPostService questionPostService, TagService tagService, UserService userService, TypeService typeService) {
+    public QuestionController(QuestionPostService questionPostService, TagService tagService, UserService userService, TypeService typeService, CommentService commentService) {
         this.questionPostService = questionPostService;
         this.tagService = tagService;
         this.userService = userService;
         this.typeService = typeService;
+        this.commentService = commentService;
     }
 
 
 
 
     @RequestMapping("tag/{id}/questions")
-    public String showQuestions(@PathVariable("id") Long id, Model model){
+    public String showQuestions(@PathVariable("id") Long id, Model model,Principal principal){
         System.out.println("before query");
-        long typeId =1;
+        String username = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(username));
         List <Object[]> allQuestions=tagService.getquestions(id,"question");
         System.out.println("after query");
         Tag tag =tagService.findTagById(id);
         List<QuestionPost> all=new ArrayList<QuestionPost>();
 
         System.out.println(all.size());
+        BigInteger b;
+        long questionId;
         for (int i = 0; i <allQuestions.size() ; i++) {
-            all.add(new QuestionPost((String)allQuestions.get(i)[1],(String)allQuestions.get(i)[3]));
+            b= new BigInteger(allQuestions.get(i)[0].toString());
+            questionId=b.longValue();
+            all.add(new QuestionPost(questionId,(String)allQuestions.get(i)[1],(String)allQuestions.get(i)[3]));
          }
 
 
@@ -75,12 +81,16 @@ public class QuestionController {
             return "askQuestion.jsp";
         }
         questionPostService.addYourQuestionPost(question);
-        return "redirect:/question/"+question.getId();
+        return "redirect:/";
     }
 
-    @RequestMapping("/question/{id}")
-    public String showQuestion(@PathVariable("id") Long id, Model model, @ModelAttribute("comment")Comment comment){
+    @RequestMapping("/tag/{tid}/question/{id}")
+    public String showQuestion(@PathVariable("tid") Long tid,@PathVariable("id") Long id, Model model, @ModelAttribute("commentoo")Comment comment,Principal principal){
         QuestionPost question=questionPostService.getQuestionPostById(id);
+        String username = principal.getName();
+        Tag tag =tagService.findTagById(tid);
+        model.addAttribute("tag", tag);
+        model.addAttribute("currentUser", userService.findByUsername(username));
         if (question ==null){
             return "error.jsp";
         }else {
@@ -89,12 +99,25 @@ public class QuestionController {
         }
 
     }
+    @PostMapping("/tag/{tid}/question/{id}")
+    public String addComment(@ModelAttribute("commentoo")Comment comment,@PathVariable("tid") Long tid, @PathVariable("id") long qid){
+        QuestionPost questionPost=questionPostService.getQuestionPostById(qid);
+        System.out.println("after get question");
+        Tag tag=tagService.findTagById(tid);
+        System.out.println("after get tag");
+
+        commentService.addComment(comment);
+        System.out.println("after create comment");
+
+        return "redirect:/tag/"+tag.getId()+"/question/"+questionPost.getId();
+
+    }
+
     @RequestMapping("/search")
-    public String searchResults(Model model){
-        List<QuestionPost> reslutQuestion=questionPostService.findsearchResult("nn","nn");
+    public String searchResults(Model model , @PathParam("se") String se){
+        List<QuestionPost> reslutQuestion=questionPostService.findsearchResult(se,se);
         model.addAttribute("allreslut",reslutQuestion);
         return "result.jsp";
     }
-
 
 }

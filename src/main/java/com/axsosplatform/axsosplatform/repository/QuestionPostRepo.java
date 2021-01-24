@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface QuestionPostRepo extends CrudRepository<QuestionPost,Long> {
 
-List<QuestionPost> findByTitleOrBodyContains(String question,String q);
+List<QuestionPost> findByTitleOrBodyLike(String question,String q);
 }
